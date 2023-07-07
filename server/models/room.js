@@ -25,6 +25,15 @@ const roomSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  isMoveDone: {
+      type: Boolean,
+      default: false,
+    },
+  justEdited: {
+        type: Boolean,
+        default: false,
+      },
+
 });
 
 const roomModel = mongoose.model("Room", roomSchema);

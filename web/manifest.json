@@ -1,6 +1,6 @@
 {
-    "name": "mp_tictactoe",
-    "short_name": "mp_tictactoe",
+    "name": "chess_final",
+    "short_name": "chess_finale",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

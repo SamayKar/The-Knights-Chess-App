@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mp_tictactoe/provider/room_data_provider.dart';
-import 'package:mp_tictactoe/resources/socket_methods.dart';
-import 'package:mp_tictactoe/views/scoreboard.dart';
-import 'package:mp_tictactoe/views/tictactoe_board.dart';
-import 'package:mp_tictactoe/views/waiting_lobby.dart';
+
 import 'package:provider/provider.dart';
+import '../provider/room_data_provider.dart';
+import '../resources/socket_methods.dart';
+import '../views/chessboard.dart';
+import '../views/waiting_lobby.dart';
 
 class GameScreen extends StatefulWidget {
   static String routeName = '/game';
@@ -33,16 +33,14 @@ class _GameScreenState extends State<GameScreen> {
     return Scaffold(
       body: roomDataProvider.roomData['isJoin']
           ? const WaitingLobby()
-          : SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Scoreboard(),
-                  const TicTacToeBoard(),
-                  Text(
-                      '${roomDataProvider.roomData['turn']['nickname']}\'s turn'),
-                ],
-              ),
+          : Container(
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                image: AssetImage('images/wood_bg.jpg'),
+                opacity: 0.8,
+                fit: BoxFit.cover,
+              )),
+              child: const ChessBoard(),
             ),
     );
   }

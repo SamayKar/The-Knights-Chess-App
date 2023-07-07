@@ -13,7 +13,7 @@ var io = require("socket.io")(server);
 app.use(express.json());
 
 const DB =
-  "mongodb+srv://rivaan:test123@cluster0.rmhtu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  "mongodb+srv://thesamay717:test123@cluster0.qkyoux9.mongodb.net/?retryWrites=true&w=majority";
 
 io.on("connection", (socket) => {
   console.log("connected!");
@@ -74,23 +74,24 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.on("tap", async ({ index, roomId }) => {
+  socket.on("tap", async ({ index, roomId, turnSwap }) => {
     try {
       let room = await Room.findById(roomId);
 
-      let choice = room.turn.playerType; // x or o
-      if (room.turnIndex == 0) {
-        room.turn = room.players[1];
-        room.turnIndex = 1;
-      } else {
-        room.turn = room.players[0];
-        room.turnIndex = 0;
+      if(turnSwap==true){
+        if (room.turnIndex == 0) {
+          room.turn = room.players[1];
+          room.turnIndex = 1;
+        } else{
+          room.turn = room.players[0];
+          room.turnIndex = 0;
+        }
       }
+
       room = await room.save();
       io.to(roomId).emit("tapped", {
         index,
-        choice,
-        room,
+        room
       });
     } catch (e) {
       console.log(e);
@@ -129,3 +130,6 @@ mongoose
 server.listen(port, "0.0.0.0", () => {
   console.log(`Server started and running on port ${port}`);
 });
+
+
+

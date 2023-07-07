@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mp_tictactoe/provider/room_data_provider.dart';
 import 'package:provider/provider.dart';
+
+import '../provider/room_data_provider.dart';
 
 class Scoreboard extends StatelessWidget {
   const Scoreboard({Key? key}) : super(key: key);

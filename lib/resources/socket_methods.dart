@@ -1,11 +1,12 @@
+import 'package:chess_final_final/resources/socket_client.dart';
 import 'package:flutter/material.dart';
-import 'package:mp_tictactoe/provider/room_data_provider.dart';
-import 'package:mp_tictactoe/resources/game_methods.dart';
-import 'package:mp_tictactoe/resources/socket_client.dart';
-import 'package:mp_tictactoe/screens/game_screen.dart';
-import 'package:mp_tictactoe/utils/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
+
+import '../provider/room_data_provider.dart';
+import '../screens/game_screen.dart';
+import '../utils/utils.dart';
+import 'package:dart_ipify/dart_ipify.dart';
 
 class SocketMethods {
   final _socketClient = SocketClient.instance.socket!;
@@ -30,13 +31,22 @@ class SocketMethods {
     }
   }
 
-  void tapGrid(int index, String roomId, List<String> displayElements) {
-    if (displayElements[index] == '') {
-      _socketClient.emit('tap', {
-        'index': index,
-        'roomId': roomId,
-      });
+  void tapGrid(int index, String roomId, RoomDataProvider roomDataProvider) {
+    int prev_i = roomDataProvider.prev_i;
+    int prev_j = roomDataProvider.prev_j;
+    String prev_piece = roomDataProvider.prev_piece;
+    int i = index ~/ 8;
+    int j = index % 8;
+
+    bool turnSwap = false;
+
+    if (prev_i != -1 &&
+        roomDataProvider.IsValidMoveCheck(prev_i, prev_j, i, j, prev_piece)) {
+      turnSwap = true;
     }
+
+    _socketClient
+        .emit('tap', {'index': index, 'roomId': roomId, 'turnSwap': turnSwap});
   }
 
   // LISTENERS
@@ -84,13 +94,9 @@ class SocketMethods {
     _socketClient.on('tapped', (data) {
       RoomDataProvider roomDataProvider =
           Provider.of<RoomDataProvider>(context, listen: false);
-      roomDataProvider.updateDisplayElements(
-        data['index'],
-        data['choice'],
-      );
+      roomDataProvider.updateDisplayElements(data['index'], context);
+
       roomDataProvider.updateRoomData(data['room']);
-      // check winnner
-      GameMethods().checkWinner(context, _socketClient);
     });
   }
 
