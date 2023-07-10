@@ -1,12 +1,10 @@
 class Player {
   final String nickname;
   final String socketID;
-  final double points;
   final String playerType;
   Player({
     required this.nickname,
     required this.socketID,
-    required this.points,
     required this.playerType,
   });
 
@@ -14,7 +12,6 @@ class Player {
     return {
       'nickname': nickname,
       'socketID': socketID,
-      'points': points,
       'playerType': playerType,
     };
   }
@@ -23,7 +20,6 @@ class Player {
     return Player(
       nickname: map['nickname'] ?? '',
       socketID: map['socketID'] ?? '',
-      points: map['points']?.toDouble() ?? 0.0,
       playerType: map['playerType'] ?? '',
     );
   }
@@ -31,13 +27,11 @@ class Player {
   Player copyWith({
     String? nickname,
     String? socketID,
-    double? points,
     String? playerType,
   }) {
     return Player(
       nickname: nickname ?? this.nickname,
       socketID: socketID ?? this.socketID,
-      points: points ?? this.points,
       playerType: playerType ?? this.playerType,
     );
   }

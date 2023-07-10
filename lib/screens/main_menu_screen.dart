@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
-
 import '../responsive/responsive.dart';
 import '../widgets/custom_button.dart';
 import 'create_room_screen.dart';
 import 'join_room_screen.dart';
 
-class MainMenuScreen extends StatelessWidget {
+class MainMenuScreen extends StatefulWidget {
   static String routeName = '/main-menu';
+
   const MainMenuScreen({Key? key}) : super(key: key);
 
-  void createRoom(BuildContext context) {
+  @override
+  State<MainMenuScreen> createState() => MainMenuScreenState();
+}
+
+class MainMenuScreenState extends State<MainMenuScreen> {
+  final TextEditingController _nameController = TextEditingController();
+
+  void createRoom(BuildContext context, String text) {
     Navigator.pushNamed(context, CreateRoomScreen.routeName);
   }
 
-  void joinRoom(BuildContext context) {
+  void joinRoom(BuildContext context, String text) {
     Navigator.pushNamed(context, JoinRoomScreen.routeName);
   }
 
@@ -25,12 +32,16 @@ class MainMenuScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomButton(
-              onTap: () => createRoom(context),
+              onTap: () {
+                createRoom(context, _nameController.text);
+              },
               text: 'Create Room',
             ),
             const SizedBox(height: 20),
             CustomButton(
-              onTap: () => joinRoom(context),
+              onTap: () {
+                joinRoom(context, _nameController.text);
+              },
               text: 'Join Room',
             ),
           ],

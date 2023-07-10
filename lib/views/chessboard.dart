@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
-
 import '../provider/room_data_provider.dart';
 import '../resources/socket_methods.dart';
 
@@ -25,9 +23,6 @@ class ChessBoardState extends State<ChessBoard> {
         index, roomDataProvider.roomData['_id'], roomDataProvider);
   }
 
-  double screenheight = 0;
-  double screenwidth = 0;
-
   @override
   Widget build(BuildContext context) {
     AssetImage FindImage(int i, int j, RoomDataProvider roomDataProvider) {
@@ -36,6 +31,7 @@ class ChessBoardState extends State<ChessBoard> {
     }
 
     RoomDataProvider roomDataProvider = Provider.of<RoomDataProvider>(context);
+    final size = MediaQuery.of(context).size;
 
     return AbsorbPointer(
       absorbing: roomDataProvider.roomData['turn']['socketID'] !=

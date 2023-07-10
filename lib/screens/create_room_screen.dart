@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-
 import '../resources/socket_methods.dart';
 import '../responsive/responsive.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text.dart';
 import '../widgets/custom_textfield.dart';
-
 
 class CreateRoomScreen extends StatefulWidget {
   static String routeName = '/create-room';

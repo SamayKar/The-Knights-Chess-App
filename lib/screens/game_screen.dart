@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 import '../provider/room_data_provider.dart';
 import '../resources/socket_methods.dart';
@@ -22,8 +21,6 @@ class _GameScreenState extends State<GameScreen> {
     super.initState();
     _socketMethods.updateRoomListener(context);
     _socketMethods.updatePlayersStateListener(context);
-    _socketMethods.pointIncreaseListener(context);
-    _socketMethods.endGameListener(context);
   }
 
   @override

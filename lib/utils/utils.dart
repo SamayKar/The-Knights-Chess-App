@@ -7,24 +7,3 @@ void showSnackBar(BuildContext context, String content) {
     ),
   );
 }
-
-void showGameDialog(BuildContext context, String text) {
-  showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(text),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text(
-                'Play Again',
-              ),
-            ),
-          ],
-        );
-      });
-}
